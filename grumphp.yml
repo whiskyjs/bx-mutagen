@@ -1,0 +1,11 @@
+grumphp:
+  tasks:
+    phpunit:
+      always_execute: true
+    phpcs:
+      standard: PSR2
+      ignore_patterns: [./vendor/*]
+    phpstan:
+      level: 0
+      ignore_patterns: [./vendor/*]
+      triggered_by: ['php']
