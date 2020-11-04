@@ -1,4 +1,4 @@
-[![Лицензия](https://img.shields.io/github/license/whiskyjs/bx-mutagen?style=flat-square)](https://github.com/whiskyjs/bx-mutagen/blob/develop/LICENSE.txt)
+[![Лицензия](https://img.shields.io/github/license/whiskyjs/bx-mutagen?style=flat-square&color=blueviolet)](https://github.com/whiskyjs/bx-mutagen/blob/develop/LICENSE.txt)
 
 ## BX-Mutagen
 
