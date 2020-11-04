@@ -28,6 +28,17 @@ final class WrapperBuilder
         $code .= <<<EOT
             class {$options->getClass()->getClassName()} extends {$options->getParent()->setWithSlash()}
             {
+                public function __construct(...\$args)
+                {
+                    if (method_exists(get_parent_class(\$this), '__construct')) {
+                        \$args = {$this->getPreConstructInvocation($options)} ?: \$args;
+                    
+                        parent::__construct(...\$args);
+                    }
+                    
+                    {$this->getPostConstructInvocation($options)}
+                }
+            
                 private static \$methodDelegate;
                 
                 public static function setMethodDelegate(\$methodDelegate)
@@ -74,10 +85,14 @@ final class WrapperBuilder
         $returnType = $method->getReturnType();
 
         if (!$returnType || in_array($returnType, ["void"])) {
-            return "static::\$methodDelegate->{$method->getName()}(...\$args);" . "\n";
+            // phpcs:disable
+            return "static::\$methodDelegate->{$method->getName()}(new \WJS\Mutagen\Core\Delegation\DelegationOrigin(\$this), ...\$args);" . "\n";
+            // phpcs:enable
         }
 
-        return "return static::\$methodDelegate->{$method->getName()}(...\$args);" . "\n";
+        // phpcs:disable
+        return "return static::\$methodDelegate->{$method->getName()}(new \WJS\Mutagen\Core\Delegation\DelegationOrigin(\$this), ...\$args);" . "\n";
+        // phpcs:enable
     }
 
     /**
@@ -101,6 +116,36 @@ final class WrapperBuilder
     {
         if ($method->getVisibility()) {
             return $method->getVisibility() . " ";
+        }
+
+        return "";
+    }
+
+    /**
+     * @param DelegatedMethod $method
+     * @return string
+     */
+    private function getPreConstructInvocation(WrapperOptions $options): string
+    {
+        if ($options->getMethodDelegate()->isDelegatingMethod("preConstruct")) {
+            // phpcs:disable
+            return "static::\$methodDelegate->preConstruct(new \WJS\Mutagen\Core\Delegation\DelegationOrigin(\$this), ...\$args)";
+            // phpcs:enable
+        }
+
+        return "";
+    }
+
+    /**
+     * @param DelegatedMethod $method
+     * @return string
+     */
+    private function getPostConstructInvocation(WrapperOptions $options): string
+    {
+        if ($options->getMethodDelegate()->isDelegatingMethod("postConstruct")) {
+            // phpcs:disable
+            return "static::\$methodDelegate->postConstruct(new \WJS\Mutagen\Core\Delegation\DelegationOrigin(\$this), ...\$args);" . "\n";
+            // phpcs:enable
         }
 
         return "";

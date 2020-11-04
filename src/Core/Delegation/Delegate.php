@@ -6,6 +6,8 @@ namespace WJS\Mutagen\Core\Delegation;
 
 use WJS\Mutagen\Core\Reflection\PHPDoc\Comment;
 
+use function WJS\Mutagen\invoke_internal;
+
 /**
  * @package WJS\Mutagen\Core\Delegation
  */
@@ -17,10 +19,26 @@ abstract class Delegate
     private ?array $methodCache;
 
     /**
+     * @throws \ReflectionException
+     */
+    public function __construct()
+    {
+        $this->compileDelegatedMethods();
+    }
+
+    /**
      * @return array
      * @throws \ReflectionException
      */
     public function getDelegatedMethods(): array
+    {
+        return $this->methodCache;
+    }
+
+    /**
+     * @throws \ReflectionException
+     */
+    public function compileDelegatedMethods(): void
     {
         if (!isset($this->methodCache)) {
             $this->methodCache = [];
@@ -41,15 +59,22 @@ abstract class Delegate
                     continue;
                 }
 
-                $this->methodCache[] = new DelegatedMethod(
+                $this->methodCache[$reflectionMethod->getName()] = new DelegatedMethod(
                     $reflectionMethod->getName(),
                     $this->getMethodVisibility($reflectionMethod),
                     $this->getMethodReturnType($reflectionMethod)
                 );
             }
         }
+    }
 
-        return $this->methodCache;
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function isDelegatingMethod(string $name): bool
+    {
+        return isset($this->methodCache[$name]);
     }
 
     /**
@@ -75,6 +100,10 @@ abstract class Delegate
         return "";
     }
 
+    /**
+     * @param \ReflectionMethod $method
+     * @return string
+     */
     private function getMethodReturnType(\ReflectionMethod $method): string
     {
         $returnType = $method->getReturnType();
