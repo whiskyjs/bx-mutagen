@@ -76,7 +76,7 @@ class ComponentInterceptorAgent extends \ArrayObject
         if (!isset($this->classCache[$componentClass])) {
             $reflection = new \ReflectionClass($componentClass);
 
-            if ($reflection->isFinal()) {
+            if ($reflection->isFinal() || $reflection->isAbstract()) {
                 $this->classCache[$componentClass] = $componentClass;
                 $this[$componentPath] = $componentClass;
             } else {
