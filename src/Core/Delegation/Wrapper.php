@@ -12,17 +12,17 @@ final class Wrapper
     /**
      * @var string
      */
-    private string $class;
+    private $class;
 
     /**
      * @var string
      */
-    private string $code;
+    private $code;
 
     /**
      * @var Delegate
      */
-    private Delegate $methodDelegate;
+    private $methodDelegate;
 
     /**
      * @param string $class

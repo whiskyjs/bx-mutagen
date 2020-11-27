@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace WJS\Mutagen\Core\Reflection;
 
+use function WJS\Mutagen\array_key_last;
+
 /**
  * @package WJS\Mutagen\Core\Reflection
  */
@@ -39,17 +41,17 @@ final class Classname
     /**
      * @var string
      */
-    private string $className = "";
+    private $className = "";
 
     /**
      * @var string[]
      */
-    private array $namespace = [];
+    private $namespace = [];
 
     /**
      * @var bool
      */
-    private bool $withSlash = false;
+    private $withSlash = false;
 
     /**
      * @return string
@@ -67,7 +69,7 @@ final class Classname
         $result = $this->className;
 
         if ($this->namespace) {
-            $result = join("\\", [...$this->namespace, $result]);
+            $result = join("\\", array_merge($this->namespace, [$result]));
         }
 
         if ($this->withSlash) {

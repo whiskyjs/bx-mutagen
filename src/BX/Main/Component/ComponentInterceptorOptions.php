@@ -14,12 +14,12 @@ class ComponentInterceptorOptions
     /**
      * @var Delegate
      */
-    private Delegate $methodDelegate;
+    private $methodDelegate;
 
     /**
      * @var \Closure|null
      */
-    private ?\Closure $predicate;
+    private $predicate;
 
     /**
      * @param Delegate $methodDelegate

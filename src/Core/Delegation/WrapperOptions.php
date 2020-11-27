@@ -14,17 +14,17 @@ final class WrapperOptions
     /**
      * @var Classname
      */
-    private Classname $className;
+    private $className;
 
     /**
      * @var Classname
      */
-    private Classname $parentName;
+    private $parentName;
 
     /**
      * @var Delegate
      */
-    private Delegate $methodDelegate;
+    private $methodDelegate;
 
     /**
      * @param Classname $className

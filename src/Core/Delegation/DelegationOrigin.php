@@ -14,12 +14,12 @@ final class DelegationOrigin
     /**
      * @var object
      */
-    private object $instance;
+    private $instance;
 
     /**
      * @param object $instance
      */
-    public function __construct(object $instance)
+    public function __construct($instance)
     {
         $this->instance = $instance;
     }
@@ -27,7 +27,7 @@ final class DelegationOrigin
     /**
      * @return object
      */
-    public function getInstance(): object
+    public function getInstance()
     {
         return $this->instance;
     }

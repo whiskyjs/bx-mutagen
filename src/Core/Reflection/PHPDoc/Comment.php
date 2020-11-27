@@ -12,7 +12,7 @@ final class Comment
     /**
      * @var string
      */
-    private string $comment;
+    private $comment;
 
     /**
      * @param string $comment

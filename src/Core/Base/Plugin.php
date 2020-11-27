@@ -14,7 +14,7 @@ abstract class Plugin implements Pluggable
     /**
      * @var bool
      */
-    private bool $pluggedIn = false;
+    private $pluggedIn = false;
 
     /**
      * @return bool

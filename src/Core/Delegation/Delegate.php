@@ -16,7 +16,7 @@ abstract class Delegate
     /**
      * @var DelegatedMethod[]|null
      */
-    private ?array $methodCache;
+    private $methodCache;
 
     /**
      * @throws \ReflectionException

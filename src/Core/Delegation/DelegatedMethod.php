@@ -12,17 +12,17 @@ final class DelegatedMethod
     /**
      * @var string
      */
-    private string $visibility = "";
+    private $visibility = "";
 
     /**
      * @var string
      */
-    private string $name;
+    private $name;
 
     /**
      * @var string
      */
-    private string $returnType = "";
+    private $returnType = "";
 
     /**
      * @param string $name

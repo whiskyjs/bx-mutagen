@@ -19,17 +19,17 @@ class ComponentInterceptorAgent extends \ArrayObject
     /**
      * @var ComponentInterceptorOptions
      */
-    private ComponentInterceptorOptions $options;
+    private $options;
 
     /**
      * @var array
      */
-    private array $classCache = [];
+    private $classCache = [];
 
     /**
      * @var array
      */
-    private array $wrapperCache = [];
+    private $wrapperCache = [];
 
     /**
      * @param array $input

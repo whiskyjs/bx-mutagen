@@ -17,12 +17,12 @@ class ComponentInterceptorPlugin extends Plugin
     /**
      * @var ComponentInterceptorOptions
      */
-    private ComponentInterceptorOptions $options;
+    private $options;
 
     /**
      * @var ComponentInterceptorAgent|null
      */
-    private ?ComponentInterceptorAgent $agent;
+    private $agent;
 
     /**
      * @param ComponentInterceptorOptions $options

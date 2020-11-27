@@ -22,7 +22,7 @@ final class WrapperBuilder
             namespace $namespace;
             
             
-            EOT;
+EOT;
         }
 
         $code .= <<<EOT
@@ -53,7 +53,7 @@ final class WrapperBuilder
             
                 {$this->getWrapperMethods($options)}
             }
-            EOT;
+EOT;
 
         return new Wrapper((string) $options->getClass(), $code, $options->getMethodDelegate());
     }
@@ -72,7 +72,7 @@ final class WrapperBuilder
                 {
                     {$this->getWrapperMethodInvocation($method)}
                 }
-            EOT;
+EOT;
         }, "");
     }
 
