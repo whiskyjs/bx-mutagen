@@ -66,7 +66,15 @@ EOT;
     {
         $methodList = $options->getMethodDelegate()->getDelegatedMethods();
 
-        return array_reduce($methodList, function (string $acc, DelegatedMethod $method) {
+        return array_reduce($methodList, function (string $acc, DelegatedMethod $method) use ($options) {
+            if (method_exists($options->getParent()->toString(), $method->getName())) {
+                $reflection = new \ReflectionMethod($options->getParent()->toString(), $method->getName());
+
+                if ($reflection->isFinal() || $reflection->isStatic()) {
+                    return $acc;
+                }
+            }
+
             return $acc . <<<EOT
                 {$this->getVisibility($method)}function {$method->getName()}(...\$args){$this->getReturnType($method)}
                 {
